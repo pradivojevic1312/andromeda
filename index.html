@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="A simple hello world page.">
+  <meta name="theme-color" content="#F1F5F3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0E1A20" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👋</text></svg>">
+  <title>Hello, world</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #F1F5F3;
+      --text: #12222B;
+      --muted: #4B5E68;
+      --line: #CBD7D2;
+      --accent: #0B6B6B;
+      --accent-ink: #FFFFFF;
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+      --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0E1A20;
+        --text: #E8F0F2;
+        --muted: #9FB2BA;
+        --line: #26383F;
+        --accent: #5CCFCB;
+        --accent-ink: #06222A;
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    [hidden] { display: none !important; }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* Layout container: fluid, with room for phone notches */
+    .wrap {
+      width: 100%;
+      max-width: 64rem;
+      margin-inline: auto;
+      padding-inline: max(1.25rem, env(safe-area-inset-left), env(safe-area-inset-right));
+    }
+
+    /* Header */
+    .site-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.25rem 1rem;
+      padding-block: 0.75rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .nav {
+      display: flex;
+      gap: 0.25rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      padding-inline: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .nav a:hover { color: var(--text); text-decoration: underline; text-underline-offset: 0.3em; }
+
+    /* Hero */
+    .hero {
+      padding-block: clamp(3rem, 12vw, 8rem) clamp(3rem, 10vw, 6rem);
+    }
+
+    .greeting {
+      margin: 0;
+      max-width: 14ch;
+      font-family: var(--serif);
+      font-size: clamp(2.75rem, 12vw, 6.5rem);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      overflow-wrap: break-word;
+      text-wrap: balance;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .greeting.swap { animation: swap 0.35s ease; }
+      @keyframes swap {
+        from { opacity: 0; transform: translateY(0.4rem); }
+        to   { opacity: 1; transform: none; }
+      }
+    }
+
+    .lead {
+      max-width: 34rem;
+      margin: 1.5rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3rem;
+      padding: 0.75rem 1.4rem;
+      border: 0;
+      border-radius: 0.5rem;
+      background: var(--accent);
+      color: var(--accent-ink);
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .button:hover { filter: brightness(1.1); }
+    .button:active { transform: translateY(1px); }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      font-weight: 600;
+      text-underline-offset: 0.3em;
+    }
+
+    /* Sections */
+    .section {
+      display: grid;
+      gap: 1.25rem 3rem;
+      padding-block: clamp(2.5rem, 8vw, 4.5rem);
+      border-top: 1px solid var(--line);
+    }
+
+    @media (min-width: 48em) {
+      .section { grid-template-columns: 1fr 2fr; }
+    }
+
+    .section h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .facts {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .facts li {
+      padding-block: 1rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .facts li:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .facts strong {
+      display: block;
+      font-size: 1.125rem;
+    }
+
+    .facts span {
+      color: var(--muted);
+    }
+
+    .section p {
+      margin: 0;
+      max-width: 34rem;
+    }
+
+    /* Footer */
+    .site-footer {
+      padding-block: 2rem calc(2rem + env(safe-area-inset-bottom, 0px));
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9375rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <a class="brand" href="#top">Hello</a>
+      <nav aria-label="Main">
+        <ul class="nav">
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <h1 class="greeting" id="greeting" aria-live="polite">Hello, world</h1>
+        <p class="lead">This page is live. It's a single HTML file, so it loads fast and works on any screen.</p>
+        <div class="actions">
+          <button class="button" id="next" type="button" hidden>Greet me in another language</button>
+          <a class="text-link" href="#about">What's on this page</a>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <h2>About this page</h2>
+        <ul class="facts">
+          <li>
+            <strong>Fast</strong>
+            <span>Plain static files served from a global network, so it loads quickly wherever your visitors are.</span>
+          </li>
+          <li>
+            <strong>Secure</strong>
+            <span>HTTPS is on by default, and with no server code or database there's very little to attack.</span>
+          </li>
+          <li>
+            <strong>Easy to change</strong>
+            <span>Edit index.html, push to Git, and the site updates itself.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="section" id="contact">
+        <h2>Contact</h2>
+        <p>Say hello at <a href="mailto:you@example.com">you@example.com</a>.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      Built with plain HTML and CSS.
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var greetings = [
+        { text: "Hello, world", lang: "en" },
+        { text: "Hola, mundo", lang: "es" },
+        { text: "Bonjour, le monde", lang: "fr" },
+        { text: "Hallo, Welt", lang: "de" },
+        { text: "Ciao, mondo", lang: "it" },
+        { text: "Olá, mundo", lang: "pt" },
+        { text: "こんにちは、世界", lang: "ja" }
+      ];
+      var title = document.getElementById("greeting");
+      var button = document.getElementById("next");
+      if (!title || !button) return;
+
+      var index = 0;
+      button.hidden = false;
+
+      button.addEventListener("click", function () {
+        index = (index + 1) % greetings.length;
+        title.textContent = greetings[index].text;
+        title.lang = greetings[index].lang;
+        title.classList.remove("swap");
+        void title.offsetWidth; // restart the animation
+        title.classList.add("swap");
+      });
+    })();
+  </script>
+</body>
+</html>
